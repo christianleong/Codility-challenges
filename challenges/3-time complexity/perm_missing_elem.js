@@ -29,18 +29,27 @@ each element of array A is an integer within the range [1..(N + 1)].
 
 */
 
+// Solution 1
+// function solution(A) {
+//   if (A.length === 0) {
+//     return null
+//   }
+//   const sortedA = A.sort((a,b) => a - b)
+//   let tempNum = sortedA[0] - 1
+//   for (let i = 0; i < sortedA.length; i++) {
+//     if(sortedA[i] - tempNum !== 1) {
+//       return sortedA[i] - 1
+//     }
+//     tempNum = sortedA[i]
+//   }
+// }
+
+// Solution 2
 function solution(A) {
-  if (A.length === 0) {
-    return null
-  }
-  const sortedA = A.sort((a,b) => a - b)
-  let tempNum = sortedA[0] - 1
-  for (let i = 0; i < sortedA.length; i++) {
-    if(sortedA[i] - tempNum !== 1) {
-      return sortedA[i] - 1
-    }
-    tempNum = sortedA[i]
-  }
+  let n = A.length + 1
+  let maxSumA = n * (n + 1) / 2
+  let sumA = A.reduce((a,b) => a + b)
+  return maxSumA - sumA
 }
 
 console.log(solution([2,3,1,5]));
