@@ -29,40 +29,61 @@ each element of array H is an integer within the range [1..1,000,000,000].
 */
 
 // Solution 1 - 88 mins (42% score) - with help from youtube
+// function solution(H) {
+//     // declare variables
+//     let lastMinHeight = 0
+//     let count = 0
+//     let stack = []
+//     // for loop to iterate through H array
+//     for (let i = 0; i < H.length; i++) {
+//         // if curr level > lastMin
+//         if (H[i] > lastMinHeight) {
+//             // add count
+//             count++
+//             // push curr level to stack
+//             stack.push(H[i])
+//             lastMinHeight = H[i]
+//         // else if (curr level < lastMin)
+//         } else if (H[i] < lastMinHeight) {
+//             // while (stack is not empty && curr level < stack[last elem])
+//             while(stack.length > 0 && H[i] < stack[stack.length - 1]) {
+//                 // pop last elem from stack
+//                 stack.pop()
+//                 // if (curr level does not equal last num)
+//                 if (stack.length === 0 || H[i] !== stack[stack.length - 1]) {
+//                     // add count
+//                     count++
+//                     // push curr level to stack
+//                     stack.push(H[i])
+//                     lastMinHeight = H[i];
+//                 }
+//             }
+//         }
+//     }
+//     return count
+// }
+
+// Solution 2 (100% score) with help from chatgpt
 function solution(H) {
-    // declare variables
-    let lastMinHeight = 0
-    let count = 0
     let stack = []
-    // for loop to iterate through H array
-    for (let i = 0; i < H.length; i++) {
-        // if curr level > lastMin
-        if (H[i] > lastMinHeight) {
+    let count = 0
+
+    for (let height of H) {
+        // while stack is not empty and current height < last stack elem
+        while (stack.length > 0 && height < stack[stack.length - 1]) {
+            // stack pop
+            stack.pop()
+        }
+        // if stack is empty OR current height > last stack elem
+        if (stack.length === 0 || height > stack[stack.length - 1]) {
+            // push height to stack
+            stack.push(height)
             // add count
-            count++
-            // push curr level to stack
-            stack.push(H[i])
-            lastMinHeight = H[i]
-        // else if (curr level < lastMin)
-        } else if (H[i] < lastMinHeight) {
-            // while (stack is not empty && curr level < stack[last elem])
-            while(stack.length > 0 && H[i] < stack[stack.length - 1]) {
-                // pop last elem from stack
-                stack.pop()
-                // if (curr level does not equal last num)
-                if (stack.length === 0 || H[i] !== stack[stack.length - 1]) {
-                    // add count
-                    count++
-                    // push curr level to stack
-                    stack.push(H[i])
-                    lastMinHeight = H[i];
-                }
-            }
+            count ++
         }
     }
     return count
 }
-
 
 const H = [2, 5, 1, 4, 6, 7, 9, 10, 1];
 
